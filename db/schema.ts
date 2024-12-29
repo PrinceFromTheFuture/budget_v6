@@ -13,12 +13,17 @@ export const budgetSectionsTable = pgTable("budget_sections", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
   isDeleted: boolean("is_deleted").default(false).notNull(),
   name: text("name").notNull(),
-  type: transactionTypeEnum().notNull(),
 });
 
 export const budgetsTable = pgTable("budgets", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
-  budegtSections: json("budegt_sections").$type<{ budgetSectionId: string; amountAllocated: number }>().array().default([]).notNull(),
+  budegtSections: json("budegt_sections")
+    .$type<{ budgetSectionId: string; amountAllocated: number; type: "expenss" | "income" }[]>()
+    .default([])
+    .notNull(),
+  name: text("name").notNull(),
+  description: text("description"),
+
   startDate: date("start_date").notNull(),
   endDate: date("end_date").notNull(),
 });

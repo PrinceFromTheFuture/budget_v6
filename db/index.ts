@@ -1,10 +1,8 @@
-import { drizzle } from "drizzle-orm/node-postgres";
-const dbUrl = process.env.DATABASE_URL;
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
+import { config } from "dotenv";
 
-if (!dbUrl) {
-  throw "DATABASE_URL env var not configured";
-}
+config({ path: ".env" }); // or .env.local
 
-const db = drizzle(dbUrl);
-
-export default db;
+const sql = neon(process.env.DATABASE_URL!);
+export const db = drizzle({ client: sql });
