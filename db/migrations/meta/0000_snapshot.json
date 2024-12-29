@@ -1,5 +1,5 @@
 {
-  "id": "a95bf7cf-d5fd-459a-a122-48fbf2fa88ef",
+  "id": "678ba839-4df1-4283-8650-983d523aa2cf",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -66,13 +66,6 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
-        },
-        "type": {
-          "name": "type",
-          "type": "type",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
         }
       },
       "indexes": {},
@@ -96,10 +89,22 @@
         },
         "budegt_sections": {
           "name": "budegt_sections",
-          "type": "json[]",
+          "type": "json",
           "primaryKey": false,
           "notNull": true,
-          "default": "'{}'"
+          "default": "'[]'::json"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "start_date": {
           "name": "start_date",
@@ -135,7 +140,7 @@
         },
         "type": {
           "name": "type",
-          "type": "type",
+          "type": "transaction_type",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
@@ -222,8 +227,8 @@
     }
   },
   "enums": {
-    "public.type": {
-      "name": "type",
+    "public.transaction_type": {
+      "name": "transaction_type",
       "schema": "public",
       "values": [
         "expenss",

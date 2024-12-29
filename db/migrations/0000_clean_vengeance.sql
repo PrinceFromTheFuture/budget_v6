@@ -1,4 +1,4 @@
-CREATE TYPE "public"."type" AS ENUM('expenss', 'income');--> statement-breakpoint
+CREATE TYPE "public"."transaction_type" AS ENUM('expenss', 'income');--> statement-breakpoint
 CREATE TABLE "accounts" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"is_deleted" boolean DEFAULT false NOT NULL,
@@ -9,20 +9,21 @@ CREATE TABLE "accounts" (
 CREATE TABLE "budget_sections" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"is_deleted" boolean DEFAULT false NOT NULL,
-	"name" text NOT NULL,
-	"type" "type" NOT NULL
+	"name" text NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "budgets" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"budegt_sections" json[] DEFAULT '{}' NOT NULL,
+	"budegt_sections" json DEFAULT '[]'::json NOT NULL,
+	"name" text NOT NULL,
+	"description" text,
 	"start_date" date NOT NULL,
 	"end_date" date NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "transactions" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"type" "type" NOT NULL,
+	"type" "transaction_type" NOT NULL,
 	"date" timestamp with time zone DEFAULT now() NOT NULL,
 	"title" text NOT NULL,
 	"budgetId" uuid NOT NULL,

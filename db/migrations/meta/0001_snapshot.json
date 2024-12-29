@@ -1,6 +1,6 @@
 {
-  "id": "143b7d38-1266-4fba-b8f7-4dd6b07e6b5f",
-  "prevId": "a95bf7cf-d5fd-459a-a122-48fbf2fa88ef",
+  "id": "353df29f-8680-42e5-b5b8-75b55e258608",
+  "prevId": "678ba839-4df1-4283-8650-983d523aa2cf",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -43,8 +43,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.budget_sections": {
-      "name": "budget_sections",
+    "public.budget_categories": {
+      "name": "budget_categories",
       "schema": "",
       "columns": {
         "id": {
@@ -91,8 +91,7 @@
           "name": "budegt_sections",
           "type": "json",
           "primaryKey": false,
-          "notNull": true,
-          "default": "'[]'::json"
+          "notNull": true
         },
         "name": {
           "name": "name",
@@ -140,7 +139,7 @@
         },
         "type": {
           "name": "type",
-          "type": "type",
+          "type": "transaction_type",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
@@ -227,8 +226,8 @@
     }
   },
   "enums": {
-    "public.type": {
-      "name": "type",
+    "public.transaction_type": {
+      "name": "transaction_type",
       "schema": "public",
       "values": [
         "expenss",
