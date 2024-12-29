@@ -1,22 +1,9 @@
 import { InferInsertModel } from "drizzle-orm";
-import {
-  boolean,
-  integer,
-  json,
-  pgEnum,
-  pgTable,
-  serial,
-  text,
-  timestamp,
-  uuid,
-  jsonb,
-  PgUUID,
-  date,
-} from "drizzle-orm/pg-core";
-export const transactionTypeEnum = pgEnum("transaction_type", ["expenss", "income"]);
+import { boolean, integer, json, pgEnum, pgTable, serial, text, timestamp, uuid, jsonb, PgUUID, date } from "drizzle-orm/pg-core";
+export const transactionTypeEnum = pgEnum("transaction_type", ["expense", "income"]);
 
 export const accountsTable = pgTable("accounts", {
-  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  id: uuid("id").notNull().defaultRandom().primaryKey(),
   isDeleted: boolean("is_deleted").default(false).notNull(),
   balance: integer("amount").notNull(),
   name: text("name").notNull(),
@@ -29,11 +16,8 @@ export const budgetCategoriesTable = pgTable("budget_categories", {
 });
 
 export const budgetsTable = pgTable("budgets", {
-  id: uuid("id").defaultRandom().primaryKey().notNull(),
-  budegtSections: json("budegt_sections")
-    .notNull()
-    .$type<{ budgetCategoryId: string; amountAllocated: number; sectionType: "expenss" | "income" }[]>()
-    .notNull(),
+  id: uuid("id").notNull().defaultRandom().notNull().primaryKey().notNull(),
+  budgetCategories: json("budget_categories").$type<{ budgetCategoryId: string; amountAllocated: number; type: "expense" | "income" }[]>().notNull(),
   name: text("name").notNull(),
   description: text("description"),
   startDate: date("start_date").notNull(),
@@ -41,7 +25,7 @@ export const budgetsTable = pgTable("budgets", {
 });
 
 export const transactionsTable = pgTable("transactions", {
-  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  id: uuid("id").notNull().defaultRandom().notNull().primaryKey().notNull(),
   type: transactionTypeEnum().notNull(),
   date: timestamp("date", { withTimezone: true }).notNull().defaultNow(),
   title: text("title").notNull(),

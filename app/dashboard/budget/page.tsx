@@ -14,16 +14,12 @@ async function page() {
   const allBudgets = await db.select().from(budgetsTable);
   const cateroies = await db.select().from(budgetCategoriesTable);
 
-  const getBudgetBal = (type: "expenss" | "income", budget: Budget) =>
-    formatCurrency(
-      budget.budegtSections
-        .filter((section) => section.sectionType === type)
-        .reduce((acc, section) => acc + section.amountAllocated, 0)
-    );
+  const getBudgetBal = (type: "expense" | "income", budget: Budget) =>
+    formatCurrency(budget.budgetCategories.filter((section) => section.type === type).reduce((acc, section) => acc + section.amountAllocated, 0));
   return (
     <section className=" p-4">
       <div className=" w-full flex justify-end mb-4 items-center">
-      <NewBudget categoriesOptions={cateroies}/>
+        <NewBudget categoriesOptions={cateroies} />
       </div>
       {allBudgets.map((budget) => {
         return (
@@ -32,8 +28,7 @@ async function page() {
               <div>
                 <CardTitle className=" mb-1">{budget.name}</CardTitle>
                 <CardDescription>
-                  ranges {dayjs(budget.startDate).format("DD/MM/YYYY")} -{" "}
-                  {dayjs(budget.endDate).format("DD/MM/YYYY")}
+                  ranges {dayjs(budget.startDate).format("DD/MM/YYYY")} - {dayjs(budget.endDate).format("DD/MM/YYYY")}
                 </CardDescription>
               </div>
               <MoreButton />
@@ -43,7 +38,7 @@ async function page() {
               <div className=" mr-2 font-semibold">expected income</div>
               <div className="  text-muted-foreground">{getBudgetBal("income", budget)}</div>
               <div className="mr-2 ml-4 font-semibold">expected outcome</div>
-              <div className="text-muted-foreground">{getBudgetBal("expenss", budget)}</div>
+              <div className="text-muted-foreground">{getBudgetBal("expense", budget)}</div>
             </CardFooter>
           </Card>
         );

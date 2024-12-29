@@ -15,6 +15,20 @@
       "when": 1735470658107,
       "tag": "0001_complex_crystal",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1735490910532,
+      "tag": "0002_red_brood",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1735491693772,
+      "tag": "0003_goofy_firebird",
+      "breakpoints": true
     }
   ]
 }
