@@ -1,8 +1,10 @@
-import db from "./db";
-import { testTable } from "./db/schema";
+import { db } from "./db";
+import { accountsTable, transactionsTable } from "./db/schema";
 
-const testFunc = async () => {
-  const val = await db.select().from(testTable);
-  console.log(val);
+const insertFakeTrnasctions = async () => {
+  await db.insert(accountsTable).values({
+    balance: 19084,
+    name: "cash",
+  });
 };
-testFunc();
+insertFakeTrnasctions();

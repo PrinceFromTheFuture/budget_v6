@@ -11,6 +11,8 @@ import {
   GalleryVerticalEnd,
   Map,
   PieChart,
+  PiggyBank,
+  ReceiptText,
   Rotate3D,
   Settings2,
   SquareTerminal,
@@ -49,8 +51,8 @@ const data = {
   navMain: [
     {
       title: "Transactions",
-      url: "#",
-      icon: Rotate3D,
+      url: "/dashboard/transactions",
+      icon: ReceiptText,
       isActive: true,
       items: [
         {
@@ -88,8 +90,8 @@ const data = {
     },
     {
       title: "Accounts",
-      url: "#",
-      icon: BookOpen,
+      url: "/dashboard/accounts",
+      icon: PiggyBank,
       items: [
         {
           title: "Introduction",

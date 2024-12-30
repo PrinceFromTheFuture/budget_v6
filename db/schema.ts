@@ -40,3 +40,5 @@ export const transactionsTable = pgTable("transactions", {
 
 export type Budget = InferInsertModel<typeof budgetsTable>;
 export type Category = InferInsertModel<typeof budgetCategoriesTable>;
+export type Transaction = InferInsertModel<typeof transactionsTable>;
+export type Account = InferInsertModel<typeof accountsTable>;

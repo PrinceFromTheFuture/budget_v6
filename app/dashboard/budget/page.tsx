@@ -23,8 +23,8 @@ async function page() {
       </div>
       {allBudgets.map((budget) => {
         return (
-          <Card key={budget.id}>
-            <CardHeader className=" flex-row w-full flex justify-between items-center">
+          <Card key={budget.id} className=" mb-4">
+            <CardHeader className=" flex-row w-full flex justify-between items-center ">
               <div>
                 <CardTitle className=" mb-1">{budget.name}</CardTitle>
                 <CardDescription>
