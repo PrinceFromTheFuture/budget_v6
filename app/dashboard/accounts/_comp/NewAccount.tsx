@@ -1,24 +1,9 @@
 "use client";
 import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { newAccountFormSchema } from "@/lib/zodSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -40,11 +25,11 @@ function NewAccount() {
   const onSubmit = async (values: z.infer<typeof newAccountFormSchema>) => {
     setIsLoading(true);
     const res = await axios.post<{ sccuess: boolean; message?: string }>("/api/accounts/new", values);
-    if (!res.data.sccuess) {
+    if (!res.data.sccuess == false) {
       toast.error(res.data.message);
       return;
     }
-    toast.success("transaction saved");
+    toast.success("account saved");
     setIsLoading(false);
   };
 
@@ -86,12 +71,7 @@ function NewAccount() {
                   <FormItem className=" mb-4">
                     <FormLabel>Balance</FormLabel>
                     <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="2345 8974 242"
-                        {...field}
-                        onChange={(e) => field.onChange(Number(e.target.value))}
-                      />
+                      <Input type="number" placeholder="2345 8974 242" {...field} onChange={(e) => field.onChange(Number(e.target.value))} />
                     </FormControl>
                     <FormDescription>How much does the account holds in agorot</FormDescription>
                     <FormMessage />
