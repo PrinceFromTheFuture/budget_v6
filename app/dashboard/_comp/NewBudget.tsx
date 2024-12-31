@@ -5,9 +5,24 @@ import { useState } from "react";
 import { CalendarIcon, Check, ChevronsUpDown, Minus, Plus } from "lucide-react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Category } from "@/db/schema";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
@@ -136,7 +151,13 @@ function NewBudget({ categoriesOptions }: { categoriesOptions: Category[] }) {
           <div className=" flex w-full gap-2 ">
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant={"outline"} className={cn("w-full justify-start text-left font-normal", !startDate && "text-muted-foreground")}>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-full justify-start text-left font-normal",
+                    !startDate && "text-muted-foreground"
+                  )}
+                >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {startDate ? format(startDate, "PPP") : <span>Pick a date</span>}
                 </Button>
@@ -147,7 +168,13 @@ function NewBudget({ categoriesOptions }: { categoriesOptions: Category[] }) {
             </Popover>
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant={"outline"} className={cn("w-full justify-start text-left font-normal", !endDate && "text-muted-foreground")}>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-full justify-start text-left font-normal",
+                    !endDate && "text-muted-foreground"
+                  )}
+                >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {endDate ? format(endDate, "PPP") : <span>Pick a date</span>}
                 </Button>
@@ -179,7 +206,10 @@ function NewBudget({ categoriesOptions }: { categoriesOptions: Category[] }) {
                     >
                       <Minus />
                     </Button>
-                    <Select defaultValue={category.categroyId!} onValueChange={(categoryOptionId) => onChangeCat(categoryOptionId, category.localId)}>
+                    <Select
+                      defaultValue={category.categroyId!}
+                      onValueChange={(categoryOptionId) => onChangeCat(categoryOptionId, category.localId)}
+                    >
                       <SelectTrigger className="w-[40%]  flex-4">
                         <SelectValue placeholder="Select a fruit" />
                       </SelectTrigger>
@@ -198,7 +228,9 @@ function NewBudget({ categoriesOptions }: { categoriesOptions: Category[] }) {
                     </Select>
                     <Select
                       defaultValue={category.type}
-                      onValueChange={(newType) => onChangeCatType(newType as "expense" | "income", category.localId)}
+                      onValueChange={(newType) =>
+                        onChangeCatType(newType as "expense" | "income", category.localId)
+                      }
                     >
                       <SelectTrigger className="w-[30%]">
                         <SelectValue placeholder="Select a Type" />

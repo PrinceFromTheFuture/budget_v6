@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import NewBudget from "../_comp/NewBudget";
+import Link from "next/link";
 
 async function page() {
   const allBudgets = await db.select().from(budgetsTable);
@@ -23,7 +24,8 @@ async function page() {
       </div>
       {allBudgets.map((budget) => {
         return (
-          <Card key={budget.id} className=" mb-4">
+          <Link key={budget.id} href={`/dashboard/budget/${budget.id}`}>
+          <Card  className=" mb-4">
             <CardHeader className=" flex-row w-full flex justify-between items-center ">
               <div>
                 <CardTitle className=" mb-1">{budget.name}</CardTitle>
@@ -36,11 +38,12 @@ async function page() {
             <CardContent>{budget.description}</CardContent>
             <CardFooter className=" flex  justify-center items-center w-full">
               <div className=" mr-2 font-semibold">expected income</div>
-              <div className="  text-muted-foreground">{getBudgetBal("income", budget)}</div>
+              <div className="  text-muted-foreground">{formatCurrency(budget.budgetCategories.filter((cat)=>cat.type ==='income').reduce((a,b)=>a+Number(b.amountAllocated),0))}</div>
               <div className="mr-2 ml-4 font-semibold">expected outcome</div>
-              <div className="text-muted-foreground">{getBudgetBal("expense", budget)}</div>
+              <div className="text-muted-foreground">{formatCurrency(budget.budgetCategories.filter((cat)=>cat.type ==='expense').reduce((a,b)=>a+Number(b.amountAllocated),0))}</div>
             </CardFooter>
           </Card>
+          </Link>
         );
       })}
     </section>

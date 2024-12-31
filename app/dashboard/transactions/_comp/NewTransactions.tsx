@@ -36,13 +36,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Account } from "@/db/schema";
+import { Account, Category } from "@/db/schema";
 import LoadingButton from "@/components/LoadingButton";
 import axios from "axios";
 import { newTransactionFormSchema } from "@/lib/zodSchemas";
 import { toast } from "sonner";
 
-function NewTransactions({ accounts }: { accounts: Account[] }) {
+function NewTransactions({ accounts, categories }: { accounts: Account[]; categories: Category[] }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof newTransactionFormSchema>>({
@@ -55,6 +55,8 @@ function NewTransactions({ accounts }: { accounts: Account[] }) {
     const res = await axios.post<{ sccuess: boolean; message?: string }>("/api/transactions/new", values);
     if (!res.data.sccuess) {
       toast.error(res.data.message);
+      setIsLoading(false);
+
       return;
     }
     toast.success("transaction saved");
@@ -178,6 +180,39 @@ function NewTransactions({ accounts }: { accounts: Account[] }) {
                   );
                 }}
               />
+              <FormField
+                control={form.control}
+                name="categoryId"
+                render={({ field }) => {
+                  return (
+                    <FormItem className=" mb-4">
+                      <FormLabel>transaction Cateogry</FormLabel>
+                      <FormControl>
+                        <Select name={field.name} onValueChange={field.onChange}>
+                          <SelectTrigger className="w-full  flex-4">
+                            <SelectValue placeholder="Select an account" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Fruits</SelectLabel>
+                              {categories.map((cat) => {
+                                return (
+                                  <SelectItem key={cat.id} value={cat.id!}>
+                                    {cat.name}
+                                  </SelectItem>
+                                );
+                              })}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormDescription>what category is the transaction</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+
               <FormField
                 name="amount"
                 control={form.control}

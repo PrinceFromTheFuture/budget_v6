@@ -28,8 +28,8 @@ export async function POST(req: NextRequest) {
   await db.insert(budgetsTable).values({
     budgetCategories: dbData,
     name: body.name,
-    endDate: body.startDate,
-    startDate: body.endDate,
+    endDate: body.endDate,
+    startDate: body.startDate,
     description: body.description,
   });
   return NextResponse.json({ success: true });

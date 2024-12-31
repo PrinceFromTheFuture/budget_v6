@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: true });
   }
 
-  //query the budget which is currently active at the time of the transaction   
+  //query the budget which is currently active at the time of the transaction
   //meaning its start date is before now and its end date is after now
   //according to the acrtecture there can only be 0 or 1 budgets which satefies this conditions
   //so acciising the fiest elment in the array can saftly be done
@@ -25,7 +25,10 @@ export async function POST(req: NextRequest) {
       dayjs(budget.endDate).isAfter(dayjs(trnasactionForm.data.date))
   )[0];
   if (!currentActiveBudget)
-    return NextResponse.json({ success: false, message: "there is no currently active budget" });
+    return NextResponse.json({
+      success: false,
+      message: "there is no active budget in the time of the transactions",
+    });
 
   const transactionAccount = (
     await db.select().from(accountsTable).where(eq(accountsTable.id, trnasactionForm.data.accountId))
@@ -39,12 +42,12 @@ export async function POST(req: NextRequest) {
 
   await db.insert(transactionsTable).values({
     amount: trnasactionForm.data.amount,
+    categoryId:trnasactionForm.data.categoryId,
     title: trnasactionForm.data.title,
     type: "expense",
     date: trnasactionForm.data.date,
     description: trnasactionForm.data.description,
     accountId: trnasactionForm.data.accountId,
-    budgetId: currentActiveBudget.id,
   });
   return NextResponse.json({ sccuess: true });
 }
