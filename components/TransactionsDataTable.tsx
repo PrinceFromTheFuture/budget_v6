@@ -110,7 +110,7 @@ export const columns: ColumnDef<Transaction>[] = [
   },
 ];
 
-export function DataTable({ transctions, budgets }: { transctions: Transaction[]; budgets: Budget[] }) {
+export function TransactionsDataTable({ transctions, budgets }: { transctions: Transaction[]; budgets: Budget[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});

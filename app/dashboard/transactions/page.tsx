@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { accountsTable, budgetCategoriesTable, budgetsTable, transactionsTable } from "@/db/schema";
 import React from "react";
-import { DataTable } from "./_comp/DataTable";
+import { TransactionsDataTable } from "../../../components/TransactionsDataTable";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,7 +25,7 @@ async function page() {
       <div className=" w-full flex justify-end">
         <NewTransactions categories={categories} accounts={accounts} />
       </div>
-      <DataTable budgets={budgets} transctions={transactions} />
+      <TransactionsDataTable budgets={budgets} transctions={transactions} />
     </div>
   );
 }
